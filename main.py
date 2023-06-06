@@ -6,22 +6,30 @@ from tkinter import messagebox
 def submit_data():
     status = terms_check_var.get()
     if status == "Accepted":
+        title = title_combobox.get()
         first_name = first_name_entry.get()
         last_name = last_name_entry.get()
-        title = title_combobox.get()
-        age = age_spinbox.get()
-        nationality = nationality_combobox.get()
 
-        num_courses = num_courses_spinbox.get()
-        num_semesters = num_semesters_spinbox.get()
-        registration_status = reg_status_var.get()
-        print(first_name)
+        if first_name and last_name:
+            age = age_spinbox.get()
+            nationality = nationality_combobox.get()
+
+            num_courses = num_courses_spinbox.get()
+            num_semesters = num_semesters_spinbox.get()
+            registration_status = reg_status_var.get()
+            print(title,first_name,last_name)
+            print(nationality)
+            print(registration_status)
+            print(num_courses,num_semesters)
+        else:
+            tkinter.messagebox.showwarning(title="Error", message="first name and last name are required")
+
     else:
-        tkinter.messagebox.showwarning(title="Error", message="You have not accepted the terms and conditions")
+            tkinter.messagebox.showwarning(title="Error", message="You have not accepted the terms and conditions")
 
 
 window = tkinter.Tk()
-window.title("Dta Entry Form")
+window.title("Data Entry Form")
 
 frame = tkinter.Frame(window)
 frame.pack()
@@ -30,22 +38,24 @@ frame.pack()
 user_info_frame = tkinter.LabelFrame(frame, text="User Information")
 user_info_frame.grid(row=0, column=0, padx=20, pady=10)
 
+title_label = tkinter.Label(user_info_frame, text="Title")
+title_combobox = ttk.Combobox(user_info_frame, values=["", "Mr.", "Ms.", "Mrs."])
+title_label.grid(row=0, column=0)
+title_combobox.grid(row=1, column=0)
+
 first_name_label = tkinter.Label(user_info_frame, text="First Name")
-first_name_label.grid(row=0, column=0)
+first_name_label.grid(row=0, column=1)
 last_name_label = tkinter.Label(user_info_frame, text="Last Name")
-last_name_label.grid(row=0, column=1)
+last_name_label.grid(row=0, column=2)
 
 first_name_entry = tkinter.Entry(user_info_frame)
 last_name_entry = tkinter.Entry(user_info_frame)
-first_name_entry.grid(row=1, column=0)
-last_name_entry.grid(row=1, column=1)
+first_name_entry.grid(row=1, column=1)
+last_name_entry.grid(row=1, column=2)
 
-title_label = tkinter.Label(user_info_frame, text="Title")
-title_combobox = ttk.Combobox(user_info_frame, values=["", "Mr.", "Ms."])
-title_label.grid(row=0, column=2)
-title_combobox.grid(row=1, column=2)
 
-age_label = tkinter.Label(user_info_frame, text="Age")
+
+age_label = tkinter.Label(user_info_frame, text='Age')
 age_spinbox = tkinter.Spinbox(user_info_frame, from_=18, to=100)
 age_label.grid(row=2, column=0)
 age_spinbox.grid(row=3, column=0)
@@ -72,12 +82,12 @@ registered_label.grid(row=0, column=0)
 registered_check.grid(row=1, column=0)
 
 num_courses_label = tkinter.Label(courses_frame, text="# Completed Courses")
-num_courses_spinbox = tkinter.Spinbox(courses_frame, from_=0, to='infinity')
+num_courses_spinbox = tkinter.Spinbox(courses_frame, from_= 0, to=1000)
 num_courses_label.grid(row=0, column=1)
 num_courses_spinbox.grid(row=1, column=1)
 
 num_semesters_label = tkinter.Label(courses_frame, text="# Semesters")
-num_semesters_spinbox = tkinter.Spinbox(courses_frame, from_=0, to='infinity')
+num_semesters_spinbox = tkinter.Spinbox(courses_frame, from_= 0, to=1000)
 num_semesters_label.grid(row=0, column=2)
 num_semesters_spinbox.grid(row=1, column=2)
 
