@@ -27,8 +27,8 @@ def submit_data():
             tkinter.messagebox.showwarning(title="Error", message="number of courses and semesters are required")
         else:
             sql = f"""
-                INSERT INTO VALUES ('{honour}','{first_name}','{last_name}','{age_spinbox}','{nationality_combobox}','{registered_check}',
-                '{num_courses_spinbox}','{num_semesters_spinbox}')
+                INSERT INTO VALUES ('{honour}','{first_name}','{last_name}','{age}','{nationality}'
+                ,'{registered_check}','{num_courses}','{num_semesters}')
                 """
             cursor.execute(sql)
             tkinter.messagebox.showinfo(title="Success", message="Student was added successfully")
