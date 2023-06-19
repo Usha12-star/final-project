@@ -1,35 +1,43 @@
+import sys
 import tkinter
 from tkinter import ttk
 from tkinter import messagebox
 
+from estd_connection import estd_connections
+cursor = estd_connections()
 
 def submit_data():
     status = terms_check_var.get()
     if status == "Accepted":
-        title = title_combobox.get()
+        honour = honour_combobox.get()
         first_name = first_name_entry.get()
         last_name = last_name_entry.get()
-
-        if first_name and last_name:
-            age = age_spinbox.get()
-            nationality = nationality_combobox.get()
-
-            num_courses = num_courses_spinbox.get()
-            num_semesters = num_semesters_spinbox.get()
-            registration_status = reg_status_var.get()
-            print(title,first_name,last_name)
-            print(nationality)
-            print(registration_status)
-            print(num_courses,num_semesters)
-        else:
+        age = age_spinbox.get()
+        nationality = nationality_combobox.get()
+        num_courses = num_courses_spinbox.get()
+        num_semesters = num_semesters_spinbox.get()
+        registration_status = reg_status_var.get()
+        if first_name and last_name == "":
             tkinter.messagebox.showwarning(title="Error", message="first name and last name are required")
-
+        if age and nationality == "":
+            tkinter.messagebox.showwarning(title="Error", message="age and nationality are required")
+        if registration_status == "":
+            tkinter.messagebox.showwarning(title="Error", message="registration status is required")
+        if num_courses and num_semesters == "":
+            tkinter.messagebox.showwarning(title="Error", message="number of courses and semesters are required")
+        else:
+            sql = f"""
+                INSERT INTO VALUES ('{honour}','{first_name}','{last_name}','{age_spinbox}','{nationality_combobox}','{registered_check}',
+                '{num_courses_spinbox}','{num_semesters_spinbox}')
+                """
+            cursor.execute(sql)
+            tkinter.messagebox.showinfo(title="Success", message="Student was added successfully")
     else:
-            tkinter.messagebox.showwarning(title="Error", message="You have not accepted the terms and conditions")
+        tkinter.messagebox.showwarning(title="Error", message="You have not accepted the terms and conditions")
 
 
 window = tkinter.Tk()
-window.title("Data Entry Form")
+window.title("Student's Data Entry Form")
 
 frame = tkinter.Frame(window)
 frame.pack()
@@ -38,10 +46,10 @@ frame.pack()
 user_info_frame = tkinter.LabelFrame(frame, text="User Information")
 user_info_frame.grid(row=0, column=0, padx=20, pady=10)
 
-title_label = tkinter.Label(user_info_frame, text="Title")
-title_combobox = ttk.Combobox(user_info_frame, values=["", "Mr.", "Ms.", "Mrs."])
-title_label.grid(row=0, column=0)
-title_combobox.grid(row=1, column=0)
+honour_label = tkinter.Label(user_info_frame, text="Honour")
+honour_combobox = ttk.Combobox(user_info_frame, values=[ "","Mr", "Ms", "Mrs"])
+honour_label.grid(row=0, column=0)
+honour_combobox.grid(row=1, column=0)
 
 first_name_label = tkinter.Label(user_info_frame, text="First Name")
 first_name_label.grid(row=0, column=1)
@@ -55,7 +63,7 @@ last_name_entry.grid(row=1, column=2)
 
 
 
-age_label = tkinter.Label(user_info_frame, text='Age')
+age_label=tkinter.Label(user_info_frame,text='Age')
 age_spinbox = tkinter.Spinbox(user_info_frame, from_=18, to=100)
 age_label.grid(row=2, column=0)
 age_spinbox.grid(row=3, column=0)
