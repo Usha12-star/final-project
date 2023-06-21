@@ -1,1 +1,1 @@
-# tKinder_Project
+# tKinder_Project for students data entry
