@@ -1,4 +1,4 @@
-import sys
+
 import tkinter
 from tkinter import ttk
 from tkinter import messagebox
@@ -21,13 +21,11 @@ def submit_data():
             tkinter.messagebox.showwarning(title="Error", message="first name and last name are required")
         if age and nationality == "":
             tkinter.messagebox.showwarning(title="Error", message="age and nationality are required")
-        if registration_status == "":
-            tkinter.messagebox.showwarning(title="Error", message="registration status is required")
         if num_courses and num_semesters == "":
             tkinter.messagebox.showwarning(title="Error", message="number of courses and semesters are required")
         else:
             sql = f"""
-                INSERT INTO VALUES ('{honour}','{first_name}','{last_name}','{age}','{nationality}'
+                INSERT INTO INFO VALUES ('{honour}','{first_name}','{last_name}','{age}','{nationality}'
                 ,'{registered_check}','{num_courses}','{num_semesters}')
                 """
             cursor.execute(sql)
@@ -60,8 +58,6 @@ first_name_entry = tkinter.Entry(user_info_frame)
 last_name_entry = tkinter.Entry(user_info_frame)
 first_name_entry.grid(row=1, column=1)
 last_name_entry.grid(row=1, column=2)
-
-
 
 age_label=tkinter.Label(user_info_frame,text='Age')
 age_spinbox = tkinter.Spinbox(user_info_frame, from_=18, to=100)
