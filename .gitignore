@@ -186,5 +186,5 @@ fabric.properties
 venv
 env/
 .env
-env.py
+env.py 
 .idea
